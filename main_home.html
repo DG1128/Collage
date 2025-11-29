@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Property</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+        /* ---------- Root / Theme ---------- */
+        :root {
+            --primary: #2b8cee;
+            --bg-light: #f6f7f8;
+            --bg-dark: #101922;
+            --text: #1F2937;
+            --muted: #6B7280;
+            --muted-2: #E5E7EB;
+            --rounded: 8px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+
+        html.dark body {
+            background: var(--bg-dark);
+            color: #e6eef6;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-light);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            font-size: 16px;
+            line-height: 1.35;
+        }
+
+        .layout-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ---------- Header ---------- */
+        header.site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            border-bottom: 1px solid var(--muted-2);
+            padding: 12px 24px;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 50; /* Increased Z-index for menu overlay */
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .brand h2 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        /* Desktop Nav Links */
+        .desktop-nav {
+            display: flex;
+            gap: 20px;
+        }
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .desktop-nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Center search */
+        .search-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 0 16px;
+        }
+
+        .search-box {
+            max-width: 520px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .search-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            color: var(--muted);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: 0;
+            outline: 0;
+            padding: 10px 12px;
+            background: transparent;
+            font-size: 16px;
+            color: inherit;
+        }
+
+        /* Header Actions (Desktop) */
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* Hamburger Button (Mobile) */
+        .mobile-toggle {
+            display: none; /* Hidden on desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text);
+            padding: 4px;
+        }
+
+        /* Mobile Menu Container */
+        .mobile-menu {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 100%; /* Right below header */
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid var(--muted-2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            flex-direction: column;
+            padding: 16px;
+            box-sizing: border-box;
+            gap: 16px;
+            z-index: 49;
+        }
+        .mobile-menu.open {
+            display: flex;
+        }
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 16px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 84px;
+            height: 40px;
+            padding: 0 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 0;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-ghost {
+            background: #E5E7EB;
+            color: var(--text);
+        }
+
+        /* ---------- Main ---------- */
+        main {
+            padding: 32px 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .results-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin: 0;
+        }
+
+        .results-sub {
+            margin: 6px 0 0 0;
+            color: var(--muted);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: #E5E7EB;
+            border: 0;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-family: 'Material Symbols Outlined';
+        }
+
+        /* Grid layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media(min-width:1024px) {
+            .grid {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+
+        /* Sidebar */
+        aside.sidebar {
+            position: relative;
+        }
+
+        .sidebar .panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--muted-2);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+        }
+        
+        /* Sticky sidebar on desktop only */
+        @media(min-width: 1024px) {
+            .sidebar .panel {
+                position: sticky;
+                top: 96px;
+            }
+        }
+
+        .panel h3 {
+            margin: 0 0 12px 0;
+            font-size: 18px;
+        }
+
+        .checkbox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-list label {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox-list input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .panel .actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .panel .actions .btn {
+            width: 100%;
+        }
+        
+        /* Mobile Filters Toggle */
+        .mobile-filter-toggle {
+            display: none;
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid var(--muted-2);
+            border-radius: 10px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            cursor: pointer;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Listings area */
+        .listings {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        @media(min-width:768px) {
+            .listings {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(min-width:1280px) {
+            .listings {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--muted-2);
+            box-shadow: 0 1px 6px rgba(2, 6, 23, 0.03);
+            transition: box-shadow .25s, transform .25s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(2, 6, 23, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card .card-body {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .card h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .card .location {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .price {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 18px;
+            margin-top: 6px;
+        }
+
+        .card .card-footer {
+            margin-top: auto;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(43, 140, 238, 0.16);
+            background: transparent;
+            color: var(--primary);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+        @media(max-width:767px) {
+            /* Header Changes */
+            header.site-header { padding: 10px 16px; }
+            .header-actions { display: none; } /* Hide desktop profile btn */
+            .desktop-nav { display: none; } /* Hide desktop links */
+            .mobile-toggle { display: block; } /* Show hamburger */
+            .search-center { display: none; } /* Hide search bar in header on mobile */
+
+            /* Main Layout Changes */
+            main { padding: 16px; }
+            .results-title { font-size: 22px; }
+            
+            /* Sidebar Handling on Mobile */
+            .sidebar .panel {
+                display: none; /* Hide filters by default on mobile */
+            }
+            .sidebar .panel.show {
+                display: block; /* Show when toggled */
+            }
+            .mobile-filter-toggle {
+                display: flex; /* Show the toggle button */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout-container">
+        
+        <header class="site-header">
+            <a href="mindex.html" class="brand">
+                <span class="text-2xl"><img src="mlogo.png" width="40" alt="Logo"></span>
+                <h2>Your House</h2>
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="mindex.html">Home</a>
+                <a href="main_home.html">Property</a>
+                <a href="mabout.html">About</a>
+                <a href="mcontact.html">Contact</a>
+            </nav>
+
+            <div class="search-center">
+                <label class="search-box">
+                    <div class="search-icon"><span class="material-symbols-outlined">search</span></div>
+                    <input id="searchBar" type="text" placeholder="Search for a city..." value="" />
+                </label>
+            </div>
+
+            <div class="header-actions">
+                <a href="user.html"><button class="btn btn-primary">Profile</button></a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle">
+                <span class="material-symbols-outlined" style="font-size: 32px;">menu</span>
+            </button>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="mindex.html">Home</a>
+                <a href="main_home.html">Property</a>
+                <a href="mabout.html">About Us</a>
+                <a href="mcontact.html">Contact</a>
+                <a href="mhelp.html">Help</a>
+                <a href="user.html" style="color: var(--primary); font-weight: 700;">My Profile</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="results-header">
+                    <div>
+                        <p class="results-title">Showing results for Vasad</p>
+                        <p class="results-sub">Explore a wide range of properties available for rent.</p>
+                    </div>
+                    <a href="mindex.html" class="back-btn">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        <span>Back to Home</span>
+                    </a>
+                </div>
+
+                <div class="grid">
+                    <aside class="sidebar">
+                        <button class="mobile-filter-toggle" id="filterToggle">
+                            <span>Filter Properties</span>
+                            <span class="material-symbols-outlined">tune</span>
+                        </button>
+
+                        <div class="panel" id="filterPanel">
+                            <h3>Filter by Price</h3>
+                            <div class="checkbox-list">
+                                <label><input type="checkbox" /> <span>₹0 – ₹1500</span></label>
+                                <label><input type="checkbox" /> <span>₹1500 – ₹2500</span></label>
+                                <label><input type="checkbox" /><span>₹2500 – ₹3500</span></label>
+                                <label><input type="checkbox" /><span>₹5000+</span></label>
+                            </div>
+
+                            <div class="actions">
+                                <button class="btn btn-primary">Apply Filters</button>
+                                <button class="btn btn-ghost">Clear Filters</button>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <section>
+                        <div class="listings">
+                            <article class="card">
+                                <img src="https://via.placeholder.com/400" alt="House" />
+                                <div class="card-body">
+                                    <h4>Spacious 3BHK Villa</h4>
+                                    <p class="location"><span class="material-symbols-outlined">location_on</span><span>Anand, Gujarat</span></p>
+                                    <p class="price">₹18,000 / month</p>
+                                    <div class="card-footer"><button class="btn-outline">View Details</button></div>
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+    // --- UI LOGIC: Mobile Menu & Filter Toggle ---
+    
+    // 1. Mobile Menu Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+        // Optional: Change icon
+        const icon = mobileToggle.querySelector('span');
+        if(mobileMenu.classList.contains('open')){
+            icon.innerText = 'close';
+        } else {
+            icon.innerText = 'menu';
+        }
+    });
+
+    // 2. Mobile Filter Toggle
+    const filterToggle = document.getElementById('filterToggle');
+    const filterPanel = document.getElementById('filterPanel');
+    
+    filterToggle.addEventListener('click', () => {
+        filterPanel.classList.toggle('show');
+    });
+
+    // --- EXISTING LOGIC: Data Loading ---
+    const RENDER_API_URL = "https://democheck-zv5p.onrender.com";
+    const SUPABASE_BASE_URL = "https://wajkisiwqfqoihleibtl.supabase.co/storage/v1/object/public/listing_images/";
+
+    document.addEventListener("DOMContentLoaded", loadListings);
+
+    async function loadListings() {
+        try {
+            const res = await fetch(`${RENDER_API_URL}/get-all-listings`);
+            const json = await res.json();
+
+            if (!json || !json.data) return;
+
+            const container = document.querySelector(".listings");
+            container.querySelectorAll(".dynamic-card").forEach(e => e.remove());
+
+            json.data.forEach(item => {
+                const img = item.image1 ? SUPABASE_BASE_URL + item.image1 : "https://via.placeholder.com/400";
+
+                const card = document.createElement("article");
+                card.classList.add("card", "dynamic-card");
+                card.innerHTML = `
+                    <img src="${img}" alt="Property Image" />
+                    <div class="card-body">
+                        <h4>${item.property_title || "Untitled Property"}</h4>
+                        <p class="location">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span>${item.city || ""}, ${item.area || ""}</span>
+                        </p>
+                        <p class="price">₹${item.price || 0} / month</p>
+                        <div class="card-footer">
+                            <button class="btn-outline">View Details</button>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener("click", () => {
+                    localStorage.setItem("selectedListingId", item.listing_id);
+                    window.location.href = "view_listing.html";
+                });
+                container.appendChild(card);
+            });
+
+        } catch (err) {
+            console.error("Error loading listings:", err);
+        }
+    }
+
+    // Search Logic
+    const searchBar = document.getElementById("searchBar");
+    let searchTimer = null;
+
+    searchBar.addEventListener("input", () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            const text = searchBar.value.trim();
+            if (text === "") {
+                loadListings();
+            } else {
+                searchListings(text);
+            }
+        }, 300);
+    });
+
+    async function searchListings(q) {
+        try {
+            const res = await fetch(`${RENDER_API_URL}/search?q=${encodeURIComponent(q)}`);
+            const json = await res.json();
+            const container = document.querySelector(".listings");
+            container.querySelectorAll(".dynamic-card").forEach(e => e.remove());
+
+            if (!json.data || json.data.length === 0) return;
+
+            json.data.forEach(item => {
+                const img = item.image1 ? SUPABASE_BASE_URL + item.image1 : "https://via.placeholder.com/400";
+                const card = document.createElement("article");
+                card.classList.add("card", "dynamic-card");
+                card.innerHTML = `
+                    <img src="${img}" alt="Property Image" />
+                    <div class="card-body">
+                        <h4>${item.property_title}</h4>
+                        <p class="location">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span>${item.city}, ${item.area}</span>
+                        </p>
+                        <p class="price">₹${item.price} / month</p>
+                        <div class="card-footer"><button class="btn-outline">View Details</button></div>
+                    </div>
+                `;
+                card.addEventListener("click", () => {
+                    localStorage.setItem("selectedListingId", item.listing_id);
+                    window.location.href = "view_listing.html";
+                });
+                container.appendChild(card);
+            });
+        } catch (err) { console.error(err); }
+    }
+
+    // Filter Logic
+    const priceFilters = document.querySelectorAll(".checkbox-list input[type='checkbox']");
+    const applyBtn = document.querySelector(".panel .actions .btn.btn-primary");
+    const clearBtn = document.querySelector(".panel .actions .btn.btn-ghost");
+
+    applyBtn.addEventListener("click", () => {
+        const selected = [];
+        priceFilters.forEach((box, index) => {
+            if (box.checked) {
+                if (index === 0) selected.push({ min: 0, max: 1500 });
+                if (index === 1) selected.push({ min: 1500, max: 2500 });
+                if (index === 2) selected.push({ min: 2500, max: 3500 });
+                if (index === 3) selected.push({ min: 5000, max: 9999999 });
+            }
+        });
+        if (selected.length === 0) { loadListings(); return; }
+        applyPriceFilters(selected);
+    });
+
+    clearBtn.addEventListener("click", () => {
+        priceFilters.forEach(box => box.checked = false);
+        loadListings();
+    });
+
+    async function applyPriceFilters(ranges) {
+        try {
+            const res = await fetch(`${RENDER_API_URL}/get-all-listings`);
+            const json = await res.json();
+            const container = document.querySelector(".listings");
+            container.querySelectorAll(".dynamic-card").forEach(e => e.remove());
+
+            const filtered = json.data.filter(item => {
+                let price = Number(item.price);
+                return ranges.some(r => price >= r.min && price <= r.max);
+            });
+
+            if (filtered.length === 0) return;
+
+            filtered.forEach(item => {
+                const img = item.image1 ? SUPABASE_BASE_URL + item.image1 : "https://via.placeholder.com/400";
+                const card = document.createElement("article");
+                card.classList.add("card", "dynamic-card");
+                card.innerHTML = `
+                    <img src="${img}" alt="">
+                    <div class="card-body">
+                        <h4>${item.property_title}</h4>
+                        <p class="location">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span>${item.city}, ${item.area}</span>
+                        </p>
+                        <p class="price">₹${item.price} / month</p>
+                        <div class="card-footer"><button class="btn-outline">View Details</button></div>
+                    </div>
+                `;
+                card.addEventListener("click", () => {
+                    localStorage.setItem("selectedListingId", item.listing_id);
+                    window.location.href = "view_listing.html";
+                });
+                container.appendChild(card);
+            });
+        } catch (err) { console.error(err); }
+    }
+    </script>
+</body>
+</html>

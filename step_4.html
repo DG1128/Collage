@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>RentEasy - Review Your Listing</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3B82F6",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-[#1F2937] dark:text-gray-200">
+
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+            <div class="container mx-auto px-6 py-4">
+                <nav class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl"><a href="mindex.html"><img src="mlogo.png" width="90vw"></a></span>
+                        <h2 class="text-xl font-bold">Your House</h2>
+                    </div>
+                    <div class="hidden md:flex flex-1 items-center justify-center gap-8">
+                        <a href="mindex.html">Home</a>
+                        <a href="mabout.html">About us</a>
+                        <a href="mcontact.html">Contact</a>
+                        <a href="mhelp.html">Help</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="flex-grow px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex justify-center">
+            <div class="w-full max-w-4xl flex flex-col gap-8">
+
+                <!-- Header -->
+                <div class="flex flex-wrap justify-between items-start gap-4">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-3xl md:text-4xl font-black">Review Your Listing</p>
+                        <p class="text-gray-500">Step 4 of 4: Review everything before publishing.</p>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button class="h-10 px-4 bg-white border rounded-lg">
+                            <a href="step_3.html">Back</a>
+                        </button>
+
+                        <button class="h-10 px-4 bg-white border rounded-lg">
+                            <a href="main_home.html">Save as Draft</a>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preview -->
+                <div class="flex flex-col gap-6">
+                    <h2 class="text-[22px] font-bold pt-5">Listing Preview</h2>
+
+                    <div class="flex flex-col xl:flex-row bg-white dark:bg-gray-800 border rounded-lg shadow-md overflow-hidden">
+
+                        <div class="w-full xl:w-2/5 bg-center bg-cover aspect-video xl:aspect-square"
+                            id="r_cover"
+                            style="background-image:url('https://via.placeholder.com/600x400');">
+                        </div>
+
+                        <div class="flex w-full flex-col p-4 xl:p-6">
+
+                            <p class="text-gray-500 text-sm" id="r_type">Apartment</p>
+
+                            <p class="text-xl font-bold" id="r_title">Listing Title</p>
+
+                            <div class="flex items-center gap-2 text-gray-500 mt-1">
+                                <span class="material-symbols-outlined !text-base">location_on</span>
+                                <p id="r_desc">Address or description</p>
+                            </div>
+
+                            <p class="text-gray-500 mt-1" id="r_rooms">Rooms details</p>
+
+                            <div class="flex items-end justify-between mt-4">
+                                <p class="text-2xl font-bold">
+                                    <span id="r_price">$0</span>
+                                    <span class="text-base text-gray-500">/month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Sections -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Property Details -->
+                    <div class="p-6 bg-white dark:bg-gray-800 border rounded-lg shadow-sm">
+                        <h3 class="text-lg font-bold mb-2">Property Details</h3>
+                        <p><strong class="text-[#1F2937] dark:text-gray-300">City:</strong>
+                            <span id="show_city">---</span>
+                        </p>
+                        <p><strong class="text-[#1F2937] dark:text-gray-300">Area:</strong>
+                            <span id="show_area">---</span>
+                        </p>
+
+                        <p><strong>Type:</strong> <span id="r_type2">N/A</span></p>
+                        <p><strong>Square Feet:</strong> <span id="r_area">N/A</span></p>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="p-6 bg-white dark:bg-gray-800 border rounded-lg shadow-sm">
+                        <h3 class="text-lg font-bold mb-2">Amenities & Features</h3>
+                        <ul id="r_amenities" class="grid grid-cols-2 gap-2 text-gray-600"></ul>
+                    </div>
+
+                    <!-- Photos -->
+                    <div class="md:col-span-2 p-6 bg-white dark:bg-gray-800 border rounded-lg shadow-sm">
+                        <h3 class="text-lg font-bold mb-2">Photos & Media</h3>
+                        <div id="r_photos" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="p-6 bg-white dark:bg-gray-800 border rounded-lg shadow-sm">
+                        <h3 class="text-lg font-bold mb-2">Pricing & Availability</h3>
+                        <p><strong class="text-[#1F2937] dark:text-gray-300">Monthly Rent:</strong>
+                            <span id="show_price">$0</span>
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Publish -->
+                <div class="flex flex-col gap-4 mt-8 border-t pt-8">
+                    <div class="flex items-start">
+                        <input class="h-4 w-4 text-primary rounded" id="terms" type="checkbox" />
+                        <label class="ms-2 text-sm">
+                            I agree to the Terms of Service.
+                        </label>
+                    </div>
+
+                    <button id="publishBtn" class="w-full md:w-auto h-12 px-8 bg-primary text-white rounded-lg font-semibold">
+                        Publish Listing
+                    </button>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+<script>
+// --- CONFIG: Live URLs ---
+const RENDER_API_URL = "https://democheck-zv5p.onrender.com";
+const SUPABASE_BASE_URL = "https://wajkisiwqfqoihleibtl.supabase.co/storage/v1/object/public/listing_images/";
+
+// -------------------------------------------------
+// ⭐ LOAD LISTING FOR STEP 4
+// -------------------------------------------------
+window.addEventListener("load", async () => {
+
+    let listing_id = localStorage.getItem("listingId"); // FIXED KEY ✔
+
+    // If user came directly without other steps
+    if (!listing_id) {
+        // FIXED: Replaced smartFetch with direct fetch to RENDER_API_URL
+        const res = await fetch(`${RENDER_API_URL}/get-latest-listing`);
+        const json = await res.json();
+
+        if (json.status === "success") {
+            listing_id = json.listing_id;
+            localStorage.setItem("listingId", listing_id);
+            fillPreview(json.data);
+            return;
+        }
+    }
+
+    // Normal path
+    loadListing();
+});
+
+// -------------------------------------------------
+// ⭐ Load listing by ID
+// -------------------------------------------------
+async function loadListing() {
+    const listing_id = localStorage.getItem("listingId");
+    if (!listing_id) return;
+
+    // FIXED: Replaced smartFetch with direct fetch to RENDER_API_URL
+    const res = await fetch(`${RENDER_API_URL}/get-listing/${listing_id}`);
+    const json = await res.json();
+
+    if (json.status === "success") {
+        fillPreview(json.data);
+    }
+}
+
+// -------------------------------------------------
+// ⭐ Fill UI Preview
+// -------------------------------------------------
+function fillPreview(data) {
+    const s1 = data.step1 || {};
+    const s2 = data.step2 || {};
+    const s3 = data.step3 || {};
+    const media = data.media || {};
+
+    // Basic Fields
+    setText("r_title", s1.property_title);
+    setText("r_desc", s1.description);
+    setText("r_type", s1.property_type);
+    setText("r_type2", s1.property_type);
+    setText("r_area", s1.total_area);
+
+    setText("r_rooms",
+        `${s1.bedrooms || 0} Bedroom • ${s1.bathrooms || 0} Bath • ${s1.total_area || 0} sqft`
+    );
+
+    // Price + Location
+    setText("r_price", s3.price);
+    setText("show_price", s3.price);
+    setText("show_city", s3.city);
+    setText("show_area", s3.area);
+
+    // Cover Image (FIXED: Uses Supabase Storage URL)
+    if (media.image1) {
+        document.getElementById("r_cover").style.backgroundImage =
+            `url('${SUPABASE_BASE_URL}${media.image1}')`;
+    }
+
+    // Photo Grid (FIXED: Uses Supabase Storage URL)
+    const container = document.getElementById("r_photos");
+    container.innerHTML = "";
+
+    ["image1", "image2", "image3", "image4"].forEach(i => {
+        if (media[i]) {
+            const img = document.createElement("img");
+            // CONSTRUCTED: Replaced localhost/uploads with SUPABASE_BASE_URL
+            img.src = `${SUPABASE_BASE_URL}${media[i]}`; 
+            img.className = "rounded-lg w-full h-32 object-cover";
+            container.appendChild(img);
+        }
+    });
+
+    // Amenities (NO CHANGES REQUIRED HERE)
+    const amenityBox = document.getElementById("r_amenities");
+    amenityBox.innerHTML = "";
+
+    const list = [];
+    if (s2.wifi) list.push("WiFi");
+    if (s2.tv) list.push("TV");
+    if (s2.ac) list.push("Air Conditioning");
+    if (s2.heating) list.push("Heating");
+    if (s2.washer) list.push("Washer");
+    if (s2.dryer) list.push("Dryer");
+    if (s2.refrigerator) list.push("Refrigerator");
+    if (s2.stove) list.push("Stove");
+    if (s2.microwave) list.push("Microwave");
+    if (s2.coffee_maker) list.push("Coffee Maker");
+    if (s2.dishwasher) list.push("Dishwasher");
+    if (s2.smoke_alarm) list.push("Smoke Alarm");
+    if (s2.co_alarm) list.push("CO Alarm");
+    if (s2.first_aid) list.push("First Aid Kit");
+    if (s2.fire_extinguisher) list.push("Fire Extinguisher");
+
+    list.forEach(a => {
+        const li = document.createElement("li");
+        li.textContent = a;
+        amenityBox.appendChild(li);
+    });
+}
+
+// Helper
+function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value || "";
+}
+
+// -------------------------------------------------
+// ⭐ PUBLISH LISTING
+// -------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+
+    const publishBtn = document.getElementById("publishBtn");
+    const termsCheckbox = document.getElementById("terms");
+
+    if (!publishBtn) return;
+
+    publishBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        if (!termsCheckbox.checked) {
+            alert("You must accept the Terms first.");
+            return;
+        }
+
+        const listing_id = localStorage.getItem("listingId"); // FIXED KEY ✔
+
+        if (!listing_id) {
+            alert("Missing listingId. Please restart the process.");
+            return;
+        }
+
+        try {
+            // FIXED: Replaced localhost with RENDER_API_URL
+            const res = await fetch(`${RENDER_API_URL}/publish-final`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ listing_id })
+            });
+
+            const json = await res.json();
+
+            if (json.status === "success") {
+                alert("Listing Published Successfully!");
+                window.location.href = "main_home.html";
+            } else {
+                alert("Publish Error: " + JSON.stringify(json));
+            }
+
+        } catch (err) {
+            alert("Network Error: " + err);
+        }
+    });
+
+});
+</script>
+
+
+</body>
+</html>
